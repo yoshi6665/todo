@@ -1,0 +1,15 @@
+current directory: /Users/yoshi/rails/todo/vendor/bundle/gems/bindex-0.8.1/ext/skiptrace
+/Users/yoshi/.rbenv/versions/2.5.0/bin/ruby -r ./siteconf20191129-55152-hc5z81.rb extconf.rb
+creating Makefile
+
+current directory: /Users/yoshi/rails/todo/vendor/bundle/gems/bindex-0.8.1/ext/skiptrace
+make "DESTDIR=" clean
+
+current directory: /Users/yoshi/rails/todo/vendor/bundle/gems/bindex-0.8.1/ext/skiptrace
+make "DESTDIR="
+compiling cruby.c
+linking shared-object skiptrace/internal/cruby.bundle
+
+current directory: /Users/yoshi/rails/todo/vendor/bundle/gems/bindex-0.8.1/ext/skiptrace
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 cruby.bundle ./.gem.20191129-55152-1yriazo/skiptrace/internal

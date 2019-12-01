@@ -1,0 +1,30 @@
+<div class="topic-index-wrapper">
+  <div class="container">
+    <p>
+    <%=link_to '作成', new_task_path %>
+    </p>
+    並べ替え
+    <%= link_to "作成順" , sort:"id"%>
+    <%= link_to "title" ,sort: "title" %>
+    <%= link_to "stasus", sort: "status" %>
+    <%= link_to "priority", sort: "priority DESC" %>
+    <%= link_to "作業開始日", sort: "start_date is NULL, start_date ASC" %>
+    <%= link_to "作業終了予定日", sort: "finish_schedule_date DESC" %>
+    <%= link_to "作業終了日", sort: "finish_date IS NULL, finish_date DESC " %>
+    <% @tasks.each do |task| %>
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <ul class="task-index-single">
+            <li class="title">
+              <%= link_to task_path(task.id) do %>
+                <%= task.title %>
+              <% end %>
+              <%= task.status %>
+              <%= task.priority %>
+            </li>
+          </ul>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

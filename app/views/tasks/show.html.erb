@@ -1,0 +1,54 @@
+<div class="task-index-wrapper">
+  <div class="comment-new-wrapper" >
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <div class="task-index-single">
+            <p>
+              <%= link_to '編集', edit_task_path  %>
+              <%= link_to '削除', task_path ,method: :delete %>
+            </p>
+            <p>
+              title
+             <%= @task.title %>
+            </p>
+            <p>
+              説明
+              <%= @task.description %>
+            </p>
+            <p>
+              終了予定日
+              <%= @task.finish_schedule_date %>
+            </p>
+            <p>
+              優先度
+              <%= @task.priority %>
+            </p>
+            <p>
+              開始日
+              <%= @task.start_date %>
+            </p>
+            <p>
+              終了日
+              <%= @task.finish_date %>
+            </p>
+            <p>
+              ステータス
+              <%= @task.status %>
+            </p>
+            <% if @task.status == '未着手' %>
+              <p>
+                 <%= link_to '作業開始', tasks_start_path(id: params[:id]) ,method: :put %>
+              </p>
+            <% elsif @task.status == '処理中' %>
+              <p>
+                <%= link_to '作業終了' , tasks_finish_path(id: params[:id]),method: :put %>
+              </p>
+            <% end %>
+            <%= link_to "一覧へ戻る" , tasks_path  %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

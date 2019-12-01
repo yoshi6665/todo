@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Todo</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <% flash.each do |key, value| %>
+      <div class="alert alert-<%= key %>" role="alert"><%= value %></div>
+    <% end %>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-transparent">
+      <div class="container">
+        <ul class="nav navbar-right">
+          <% if logged_in? %>
+              <%= link_to 'logout' ,logout_path, method: :delete  %>
+          <% end %>
+        </ul>
+      </div>
+    </nav>
+    <%= yield %>
+
+    <script>
+      $(function(){
+        $(".alert").fadeOut(5000);
+      });
+    </script>
+  </body>
+</html>
