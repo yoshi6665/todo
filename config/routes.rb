@@ -1,14 +1,12 @@
 Rails.application.routes.draw do
-
-
-  get 'tasks/new'
   root 'pages#index'
-  get 'sessions/new'
-  put 'tasks/start'
-  put 'tasks/finish'
   resources :users
-  resources :tasks, :only => [:index, :show, :new, :create, :update, :destroy, :edit]
-
+  resources :tasks do
+    collection do
+      put :start
+      put :finish
+    end
+  end
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'

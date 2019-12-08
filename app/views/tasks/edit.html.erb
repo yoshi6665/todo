@@ -20,14 +20,13 @@
           </div>
 
           <div class="form-group">
-            <%= f.label :優先度 %>
-            <%= f.radio_button :priority,"高", class: 'form-control' ,value: @task.priority %>高
-            <%= f.radio_button :priority,"低", class: 'form-control' ,value: @task.priority %>低
+            <%= f.label :priority %>
+            <%= f.select :priority, Task.priorities.keys, value:@task.priority %>
           </div>
 
           <div class="form-group">
             <%= f.label :ステータス %>
-            <%= f.select :status,[["未着手","未着手"],["処理中","処理中"],["完了","完了"]], class: 'form-control' ,value: @task.status %>
+            <%= f.select :priority, Task.statuses.keys ,value: @task.status %>
           </div>
 
           <%= f.submit '保存', class: 'btn btn-black btn-block' %>

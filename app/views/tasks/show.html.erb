@@ -36,13 +36,13 @@
               ステータス
               <%= @task.status %>
             </p>
-            <% if @task.status == '未着手' %>
+            <% if @task.status == "undo" %>
               <p>
-                 <%= link_to '作業開始', tasks_start_path(id: params[:id]) ,method: :put %>
+                 <%= link_to '作業開始', start_tasks_path(id: params[:id]) ,method: :put %>
               </p>
-            <% elsif @task.status == '処理中' %>
+            <% elsif @task.status == "in_progress" %>
               <p>
-                <%= link_to '作業終了' , tasks_finish_path(id: params[:id]),method: :put %>
+                <%= link_to '作業終了' , finish_tasks_path(id: params[:id]),method: :put %>
               </p>
             <% end %>
             <%= link_to "一覧へ戻る" , tasks_path  %>

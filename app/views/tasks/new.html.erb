@@ -16,12 +16,12 @@
 
           <div class="form-group">
             <%= f.label :終了予定日 %>
-            <%= f.date_select :finish_schedule_date, class: 'form-control' %>
+            <%= f.date_field :finish_schedule_date, class: 'form-control' , value: Date.new%>
           </div>
 
           <div class="form-group">
             <%= f.label :優先度 %>
-            <%= f.radio_button :priority,"高", class: 'form-control' %>高<%= f.radio_button :priority,"低", class: 'form-control' %>低
+            <%= f.select :priority, Task.priorities.keys %>
           </div>
 
 

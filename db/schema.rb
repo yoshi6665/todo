@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_29_062011) do
+ActiveRecord::Schema.define(version: 2019_12_07_031450) do
 
   create_table "tasks", force: :cascade do |t|
     t.string "title"
@@ -18,8 +18,8 @@ ActiveRecord::Schema.define(version: 2019_11_29_062011) do
     t.date "start_date"
     t.date "finish_schedule_date"
     t.date "finish_date"
-    t.string "priority"
-    t.string "status"
+    t.integer "priority", default: 10
+    t.integer "status", default: 10
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

@@ -13,13 +13,19 @@
     <% flash.each do |key, value| %>
       <div class="alert alert-<%= key %>" role="alert"><%= value %></div>
     <% end %>
-    <nav class="navbar navbar-default navbar-fixed-top navbar-transparent">
-      <div class="container">
-        <ul class="nav navbar-right">
+    <nav class="navbar">
+      <div class="nav_container">
+        <h1 class="title">
+          ToDo
+        </h1>
+        <div class="navbar_container">
           <% if logged_in? %>
-              <%= link_to 'logout' ,logout_path, method: :delete  %>
+            <%= current_user.username %>さん
+            <%= link_to 'CreateTask', new_task_path  %>
+            <%= link_to 'List',  tasks_path %>
+            <%= link_to 'logout' ,logout_path, method: :delete  %>
           <% end %>
-        </ul>
+        </div>
       </div>
     </nav>
     <%= yield %>
