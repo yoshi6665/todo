@@ -26,7 +26,7 @@
 
           <div class="form-group">
             <%= f.label :ステータス %>
-            <%= f.select :priority, Task.statuses.keys ,value: @task.status %>
+            <%= f.select :status, Task.statuses.keys ,value: @task.status %>
           </div>
 
           <%= f.submit '保存', class: 'btn btn-black btn-block' %>

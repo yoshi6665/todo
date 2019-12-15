@@ -6,7 +6,9 @@ class TasksController < ApplicationController
   end
 
   def index
-    @tasks = Task.search(params[:search],params[:search_start_date1],params[:search_start_date2])
+    @statuses = Task.statuses
+    @priorities = Task.priorities
+    @tasks = Task.search(params)
   end
 
   def show
@@ -45,14 +47,14 @@ class TasksController < ApplicationController
 
   def start
     @task.status = Task.statuses["in_progress"]
-    @task.start_date = Date.new
+    @task.start_date = Date.today
     @task.save
     redirect_to task_path(id: params[:id]) ,success: '作業を開始しました'
   end
 
   def finish
     @task.status = Task.statuses["done"]
-    @task.finish_date = Date.new
+    @task.finish_date = Date.today
     @task.save
     redirect_to task_path(id: params[:id]) ,success: '作業を終了しました'
   end

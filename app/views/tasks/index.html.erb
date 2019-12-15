@@ -1,59 +1,79 @@
 <div class="topic-index-wrapper">
   <div class="container">
-    <p>
-    <%=link_to '作成', new_task_path %>
-    </p>
     <%= form_tag tasks_path, :method => 'get' do %>
-      <div>
+    <div class="search">
+      <input type="button" value="条件検索" onclick="clickBtn1()" />
+      <div id="p1" >
         <%= text_field_tag :search, params[:search] %>
         <p>
-          start_date
-          <%= date_field_tag :search_start_date1, params[:search_start_date1] %>~<%= date_field_tag :search_start_date2, params[:search_start_date2] %>
-        </p>
-        <p>
-          finish_schedule_date
-          <%= date_field_tag :finish_search, params[:finish_schedule_date_search] %>~<%= date_field_tag :finish_search, params[:finish_schedule_date_search] %>
-        </p>
-        <p>
           status
-          <%= select_tag 'name', options_for_select(Task.statuses) %>
+          <%= select_tag 'status', options_for_select(@statuses,0),include_blank: true %>
         </p>
         <p>
           priority
-          <%= select_tag 'name', options_for_select(Task.priorities) %>
+          <%= select_tag 'priority', options_for_select(@priorities,0),include_blank: true %>
         </p>
-        <%= submit_tag '検索' %>
+        <p>
+          start_date
+          <%= date_field_tag :start_from,include_blank: true %>~<%= date_field_tag :start_to, include_blank: true %>
+        </p>
+        <p>
+          finish_schedule_date
+          <%= date_field_tag :finish_schedule_from,include_blank: true%>~<%= date_field_tag :finish_schedule_to, include_blank: true %>
+        </p>
+        <%= image_submit_tag('search.png' ,class: "search-img") %>
       </div>
+    </div>
+    <script>
+    //初期表示は非表示
+    document.getElementById("p1").style.display ="none";
+
+    function clickBtn1(){
+    	const p1 = document.getElementById("p1");
+
+    	if(p1.style.display=="block"){
+    		// noneで非表示
+    		p1.style.display ="none";
+    	}else{
+    		// blockで表示
+    		p1.style.display ="block";
+    	}
+    }
+    </script>
     <% end %>
-    <div>
-      並べ替え
-      <%= link_to "作成順" , sort:"id"%>
-      <%= link_to "title" ,sort: "title" %>
-      <%= link_to "stasus", sort: "status" %>
-      <%= link_to "priority", sort: "priority DESC" %>
-      <%= link_to "作業開始日", sort: "start_date is NULL, start_date ASC" %>
-      <%= link_to "作業終了予定日", sort: "finish_schedule_date DESC" %>
-      <%= link_to "作業終了日", sort: "finish_date IS NULL, finish_date DESC " %>
-      <p>
-        <% if params[:search] != "" %>
-          検索結果 <%= @tasks.count %>件
-        <% end %>
-      </p>
-      <% @tasks.each do |task| %>
-        <div class="row">
-          <div class="col-md-6 col-md-offset-3">
-            <ul class="task-index-single">
-              <li class="title">
-                <%= link_to task_path(task.id) do %>
-                  <%= task.title %>
-                <% end %>
-                <%= task.status %>
-                <%= task.priority %>
-              </li>
-            </ul>
-          </div>
-        </div>
+    <div class="sort">
+      <%= form_tag tasks_path, :method => 'get' do %>
+        <%= select_tag 'sort', options_for_select({作成順: 1,名前順: 2,ステータス: 3,優先度: 4,作業開始日: 5,作業終了予定日: 6,作業終了日: 7}, 0), include_blank: true %>
+        <%= submit_tag '並べ替え' %>
       <% end %>
+    </div>
+      <p class="create">
+        <%=link_to '新規作成', new_task_path %>
+      </p>
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <table id="table1">
+            <tr class="heading">
+              <th>タスク名</th>
+              <th>ステータス</th>
+              <th>優先度</th>
+            </tr>
+            <% @tasks.each do |task| %>
+              <tr class="task" onclick='window.location="<%='/tasks/'+task.id.to_s %>"' role="link">
+                <td>
+                  <%= task.title %>
+                </td>
+                <td>
+                  <%= task.status %>
+                </td>
+                <td>
+                  <%= task.priority %>
+                </td>
+              </tr>
+            <% end %>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 </div>

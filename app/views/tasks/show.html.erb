@@ -8,34 +8,36 @@
               <%= link_to '編集', edit_task_path  %>
               <%= link_to '削除', task_path ,method: :delete %>
             </p>
-            <p>
-              title
-             <%= @task.title %>
-            </p>
-            <p>
-              説明
-              <%= @task.description %>
-            </p>
-            <p>
-              終了予定日
-              <%= @task.finish_schedule_date %>
-            </p>
-            <p>
-              優先度
-              <%= @task.priority %>
-            </p>
-            <p>
-              開始日
-              <%= @task.start_date %>
-            </p>
-            <p>
-              終了日
-              <%= @task.finish_date %>
-            </p>
-            <p>
-              ステータス
-              <%= @task.status %>
-            </p>
+            <table class="table">
+              <tr>
+                <th>タスク名</th>
+                <th><%= @task.title %></th>
+              </tr>
+              <tr>
+                <th>説明</th>
+                <th><%= @task.description %></th>
+              </tr>
+              <tr>
+                <th>ステータス</th>
+                <th><%= @task.status %></th>
+              </tr>
+              <tr>
+                <th>優先度</th>
+                <th><%= @task.priority %></th>
+              </tr>
+              <tr>
+                <th>作業終了予定日</th>
+                <th><%= @task.finish_schedule_date %></th>
+              </tr>
+              <tr>
+                <th>作業開始日</th>
+                <th><%= @task.start_date %></th>
+              </tr>
+              <tr>
+                <th>作業終了日</th>
+                <th><%= @task.finish_date %></th>
+              </tr>
+            </table>
             <% if @task.status == "undo" %>
               <p>
                  <%= link_to '作業開始', start_tasks_path(id: params[:id]) ,method: :put %>
