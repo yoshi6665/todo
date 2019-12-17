@@ -6,14 +6,14 @@ class Task < ApplicationRecord
 
 
   enum status: {
-    undo: 10,
-    in_progress: 20,
-    done: 30,
+    未着手: 10,
+    作業中: 20,
+    完了: 30,
   }
 
   enum priority: {
-    high: 10,
-    low: 20,
+    高: 10,
+    低: 20,
   }
 
   def self.search(search)
@@ -25,6 +25,7 @@ class Task < ApplicationRecord
     status = search[:status]
     priority = search[:priority]
     sort = search[:sort]
+    updown = search[:ASCorDSC]
     tasks = Task.all
     tasks = tasks.where(['title LIKE ? OR description LIKE ?', "%#{keyword}%","%#{keyword}%"]) if keyword.present?
     tasks = tasks.where("start_date >= ?", start_from) if start_from.present?
@@ -33,22 +34,20 @@ class Task < ApplicationRecord
     tasks = tasks.where(priority: priority) if priority.present?
     tasks = tasks.where("finish_schedule_date >= ?", finish_schedule_from) if finish_schedule_from.present?
     tasks = tasks.where("finish_schedule_date <= ?", finish_schedule_to) if finish_schedule_to.present?
-    if sort = "1"
-      tasks=tasks.order(['field(id,?)',ids])
-    elsif sort = "2"
-      tasks=Task.order(['field()']) :yomi
-    elsif sort = "3"
-      tasks=Task.order(status: "DESC")
-    elsif sort = "4"
-       tasks=Task.order(priority: "DESC")
-    elsif sort = "5"
-       tasks=Task.order(start_date: "DESC")
-    elsif sort = "6"
-      tasks=Task.order(finish_schedule_date: "DESC")
-    elsif sort = "7"
-       tasks=Task.order(finish_date: "DESC")
-    end
+    tasks = tasks.order(id: "DESC") if sort == "作成順" && updown == "降順"
+    tasks = tasks.order(id: "ASC") if sort == "作成順" && updown == "昇順"
+    tasks = tasks.order(title: "DESC") if sort == "名前順" && updown == "降順"
+    tasks = tasks.order(title: "ASC") if sort == "名前順" && updown == "昇順"
+    tasks = tasks.order(status: "DESC") if sort == "ステータス" && updown == "降順"
+    tasks = tasks.order(status: "ASC") if sort == "ステータス" && updown == "昇順"
+    tasks = tasks.order(priority: "DESC") if sort == "優先度" && updown == "降順"
+    tasks = tasks.order(priority: "ASC") if sort == "優先度" && updown == "昇順"
+    tasks = tasks.order(start_date: "DESC") if sort == "作業開始日" && updown == "降順"
+    tasks = tasks.order(start_date: "ASC") if sort == "作業開始日" && updown == "昇順"
+    tasks = tasks.order(finish_schedule_date: "DESC") if sort == "作業終了予定日" && updown == "降順"
+    tasks = tasks.order(finish_schedule_date: "ASC") if sort == "作業終了予定日" && updown == "昇順"
+    tasks = tasks.order(finish_date: "DESC") if sort == "作業終了日" && updown == "降順"
+    tasks = tasks.order(finish_date: "ASC") if sort == "作業終了日" && updown == "昇順"
     tasks
   end
-
 end

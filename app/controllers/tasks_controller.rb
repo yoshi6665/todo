@@ -17,7 +17,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     @task.user_id = current_user.id
-    @task.status = Task.statuses["undo"]
+    @task.status = Task.statuses["未着手"]
 
     if @task.save
       redirect_to tasks_path, success: '保存しました'
@@ -46,14 +46,14 @@ class TasksController < ApplicationController
   end
 
   def start
-    @task.status = Task.statuses["in_progress"]
+    @task.status = Task.statuses["作業中"]
     @task.start_date = Date.today
     @task.save
     redirect_to task_path(id: params[:id]) ,success: '作業を開始しました'
   end
 
   def finish
-    @task.status = Task.statuses["done"]
+    @task.status = Task.statuses["完了"]
     @task.finish_date = Date.today
     @task.save
     redirect_to task_path(id: params[:id]) ,success: '作業を終了しました'

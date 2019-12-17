@@ -43,7 +43,8 @@
     <% end %>
     <div class="sort">
       <%= form_tag tasks_path, :method => 'get' do %>
-        <%= select_tag 'sort', options_for_select({作成順: 1,名前順: 2,ステータス: 3,優先度: 4,作業開始日: 5,作業終了予定日: 6,作業終了日: 7}, 0), include_blank: true %>
+        <%= select_tag 'sort', options_for_select({作成順:"作成順",名前順: "名前順",ステータス: "ステータス",優先度: "優先度",作業開始日: "作業開始日",作業終了予定日: "作業終了予定日",作業終了日: "作業終了日"}, 0), include_blank: true %>
+        <%= select_tag 'ASCorDSC', options_for_select({降順:"降順",昇順:"昇順"}) %>
         <%= submit_tag '並べ替え' %>
       <% end %>
     </div>
