@@ -6,9 +6,10 @@ class TasksController < ApplicationController
   end
 
   def index
+    prepare_search_attr
     @statuses = Task.statuses
     @priorities = Task.priorities
-    @tasks = Task.search(params)
+    @tasks = Task.search(@search_attr)
   end
 
   def show
@@ -60,8 +61,13 @@ class TasksController < ApplicationController
   end
 
   private
+  def prepare_search_attr
+    @search_attr = {search:'', status:'', priority:'', start_from: '',start_to: '',finish_schedule_from: '',finish_schedule_to: '',sort: '',updown: ''}
+    @search_attr = task_params.delete_if { |_key, val| val.blank? } if params.key?(:task)
+  end
+
   def task_params
-    params.require(:task).permit(:title, :description, :finish_schedule_date, :priority, :status)
+    params.require(:task).permit(:title,:description,:keyword,:start_from,:start_to,:finish_schedule_from,:finish_schedule_to, :priority, :status,:sort,:updown)
   end
 
   def set_task

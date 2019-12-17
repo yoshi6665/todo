@@ -4,22 +4,22 @@
     <div class="search">
       <input type="button" value="条件検索" onclick="clickBtn1()" />
       <div id="p1" >
-        <%= text_field_tag :search, params[:search] %>
+        <%= text_field_tag 'task[keyword]', @search_attr[:keyword] %>
         <p>
           status
-          <%= select_tag 'status', options_for_select(@statuses,0),include_blank: true %>
+          <%= select_tag 'task[status]', options_for_select(@statuses,@search_attr[:status]),prompt:'-' %>
         </p>
         <p>
           priority
-          <%= select_tag 'priority', options_for_select(@priorities,0),include_blank: true %>
+          <%= select_tag 'task[priority]', options_for_select(@priorities,@search_attr[:priority]),prompt:'-' %>
         </p>
         <p>
           start_date
-          <%= date_field_tag :start_from,include_blank: true %>~<%= date_field_tag :start_to, include_blank: true %>
+          <%= date_field_tag 'task[start_from]',@search_attr[:start_from] %>~<%= date_field_tag 'task[start_to]', @search_attr[:start_to] %>
         </p>
         <p>
           finish_schedule_date
-          <%= date_field_tag :finish_schedule_from,include_blank: true%>~<%= date_field_tag :finish_schedule_to, include_blank: true %>
+          <%= date_field_tag 'finish_schedule_from',@search_attr[:finish_schedule_from]%>~<%= date_field_tag 'finish_schedule_to', @search_attr[:finish_schedule_to] %>
         </p>
         <%= image_submit_tag('search.png' ,class: "search-img") %>
       </div>
@@ -43,8 +43,9 @@
     <% end %>
     <div class="sort">
       <%= form_tag tasks_path, :method => 'get' do %>
-        <%= select_tag 'sort', options_for_select({作成順:"作成順",名前順: "名前順",ステータス: "ステータス",優先度: "優先度",作業開始日: "作業開始日",作業終了予定日: "作業終了予定日",作業終了日: "作業終了日"}, 0), include_blank: true %>
-        <%= select_tag 'ASCorDSC', options_for_select({降順:"降順",昇順:"昇順"}) %>
+        <%= select_tag 'task[sort]', options_for_select({作成順:"作成順",名前順: "名前順",ステータス: "ステータス",優先度: "優先度",作業開始日: "作業開始日",
+        作業終了予定日: "作業終了予定日",作業終了日: "作業終了日"}, @search_attr[:sort]),prompt:'-' %>
+        <%= select_tag 'task[updown]', options_for_select({降順:"降順",昇順:"昇順"},@search_attr[:updown]) %>
         <%= submit_tag '並べ替え' %>
       <% end %>
     </div>

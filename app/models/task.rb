@@ -17,7 +17,7 @@ class Task < ApplicationRecord
   }
 
   def self.search(search)
-    keyword = search[:search]
+    keyword = search[:keyword]
     start_from = search[:start_from]
     start_to = search[:start_to]
     finish_schedule_from = search[:finish_schedule_from]
@@ -25,7 +25,7 @@ class Task < ApplicationRecord
     status = search[:status]
     priority = search[:priority]
     sort = search[:sort]
-    updown = search[:ASCorDSC]
+    updown = search[:updown]
     tasks = Task.all
     tasks = tasks.where(['title LIKE ? OR description LIKE ?', "%#{keyword}%","%#{keyword}%"]) if keyword.present?
     tasks = tasks.where("start_date >= ?", start_from) if start_from.present?
